@@ -1,9 +1,6 @@
 <?php
 
-use App\Models\Post;
-use App\Models\Category;
-use App\Models\Image;
-use App\Models\User;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,17 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/createuserimage', function () {
-    $image = Image::find(2);
-    return  $image->imageable;
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-
-
-Route::get('/', function () {
-    return view('home');
-})->name('home');
 Route::get('/post', function () {
     return view('post');
 })->name('post');

@@ -4,22 +4,26 @@
     <div class="colorlib-blog">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
-                    <div class="block-21 d-flex animate-box">
-                        <a href="#" class="blog-img"
-                            style="background-image: url({{ asset('asset/images/blog-1.jpg') }});"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control
-                                    about the blind texts</a></h3>
-                            <p>ven the all-powerful Pointing has no control about the blind texts it is an almost
-                            </p>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> May 29, 2018</a></div>
-                                <div><a href="#"><span class="icon-user2"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                <div class="col-md-8 posts-col">
+
+
+                    @foreach ($posts as $post)
+                        <div class="block-21 d-flex animate-box post">
+                            <a href="#" class="blog-img"
+                                style="background-image: url({{ asset('asset/images/blog-1.jpg') }});"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="#">{{$post->title}}</a></h3>
+                                <p class="excerpt">{{$post->excerpt}} </p>
+                                <div class="meta">
+                                    <div><a class="date" href="#"><span class="icon-calendar"></span>{{$post->created_at->diffForHumans()}}</a></div>
+                                    <div><a href="#"><span class="icon-user2"></span> {{$post->author->name}}</a></div>
+                                    <div><a class="comments-count" href="#"><span class="icon-chat"></span> {{$post->comments_count}}</a></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+
+
 
                     <div class="block-21 d-flex animate-box">
                         <a href="#" class="blog-img"
