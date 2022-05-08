@@ -10,21 +10,29 @@
                 <div class="col-md-8 posts-col">
 
 
-                    @foreach ($posts as $post)
-                        <div class="block-21 d-flex animate-box post">
-                            <a href="#" class="blog-img"
-                                style="background-image: url({{ asset('storage/'.$post->image->path.'') }});"></a>
-                            <div class="text">
-                                <h3 class="heading"><a href="#">{{$post->title}}</a></h3>
-                                <p class="excerpt">{{$post->excerpt}} </p>
-                                <div class="meta">
-                                    <div><a class="date" href="#"><span class="icon-calendar"></span>{{$post->created_at->diffForHumans()}}</a></div>
-                                    <div><a href="#"><span class="icon-user2"></span> {{$post->author->name}}</a></div>
-                                    <div><a class="comments-count" href="#"><span class="icon-chat"></span> {{$post->comments_count}}</a></div>
+                        @forelse ($posts as $post)
+                            <div class="block-21 d-flex animate-box post">
+                                <a href="#" class="blog-img"
+                                    style="background-image: url({{ asset('storage/' . $post->image->path . '') }});"></a>
+                                <div class="text">
+                                    <h3 class="heading"><a href="#">{{ $post->title }}</a></h3>
+                                    <p class="excerpt">{{ $post->excerpt }} </p>
+                                    <div class="meta">
+                                        <div><a class="date" href="#"><span
+                                                    class="icon-calendar"></span>{{ $post->created_at->diffForHumans() }}</a>
+                                        </div>
+                                        <div><a href="#"><span class="icon-user2"></span>
+                                                {{ $post->author->name }}</a>
+                                        </div>
+                                        <div><a class="comments-count" href="#"><span class="icon-chat"></span>
+                                                {{ $post->comments_count }}</a></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                            @empty
+                            <p class="lead">Gösterilecek Blog Yok</p>
+                        @endforelse
+                    {{ $posts->links() }}
                 </div>
 
 
@@ -37,7 +45,9 @@
                             <div class="block-24">
                                 <ul>
                                     @foreach ($categories as $category)
-                                    <li><a href="#">{{$category->name}} <span>{{$category->posts_count}}</span></a></li>
+                                        <li><a href="#">{{ $category->name }}
+                                                <span>{{ $category->posts_count }}</span></a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -57,19 +67,21 @@
 
 
                             @foreach ($recent_posts as $recent_post)
-                            <div class="f-blog">
-                                <a href="blog.html" class="blog-img"
-                                    style="background-image: url({{ asset('storage/'.$recent_post->image->path.'') }});">
-                                </a>
-                                <div class="desc">
-                                    <p class="admin"><span>{{$recent_post->created_at->diffForHumans()}}</span></p>
-                                    <h2>
-                                        <a href="blog.html">
-                                            {{\Str::limit($recent_post->title,20)}}</a>
-                                    </h2>
-                                    <p>{{$recent_post->excerpt}}</p>
+                                <div class="f-blog">
+                                    <a href="blog.html" class="blog-img"
+                                        style="background-image: url({{ asset('storage/' . $recent_post->image->path . '') }});">
+                                    </a>
+                                    <div class="desc">
+                                        <p class="admin">
+                                            <span>{{ $recent_post->created_at->diffForHumans() }}</span>
+                                        </p>
+                                        <h2>
+                                            <a href="blog.html">
+                                                {{ \Str::limit($recent_post->title, 20) }}</a>
+                                        </h2>
+                                        <p>{{ $recent_post->excerpt }}</p>
+                                    </div>
                                 </div>
-                            </div>
                             @endforeach
 
 
@@ -78,9 +90,9 @@
                             <h3 class="sidbar-heading">Tags</h3>
                             <div class="block-26">
                                 <ul>
-                            @foreach ($tags as $tag)
-                                    <li><a href="#">{{$tag->name}}</a></li>
-                            @endforeach
+                                    @foreach ($tags as $tag)
+                                        <li><a href="#">{{ $tag->name }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
