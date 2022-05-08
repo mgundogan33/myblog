@@ -80,7 +80,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="{{ route('about') }}">About</a></li>
-                                <li><a href="{{ route('contact') }}">Contact</a></li>
+                                <li><a href="{{ route('contact.create') }}">Contact</a></li>
                                @guest
                                     <li class="btn-cta"><a href="{{ route('login') }}"><span>Giriş Yap</span></a>
                                     </li>
