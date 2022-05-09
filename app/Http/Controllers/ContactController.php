@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\Mail\Test;
 
 class ContactController extends Controller
 {
@@ -22,6 +24,9 @@ class ContactController extends Controller
                 'message' => 'nullable|min:5|max:500',
             ])
         );
+
+        Mail::to("gundogan.mehmet33@gmail.com")->send(new Test("Mehmet"));
+
         return redirect()->route('contact.create')->with('success','Mesajın Gönderildi');
     }
 }
