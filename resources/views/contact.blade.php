@@ -4,6 +4,8 @@
 
 @section('content')
 
+    <div class="gloabal-message info d-none"></div>
+
     <div class="colorlib-contact">
         <div class="container">
             <div class="row row-pb-md">
@@ -118,10 +120,8 @@
             formData.append('subject', subject);
             formData.append('message', message);
 
-            console.log(csrf_token)
-
             $.ajax({
-                url: '{{ route('contact.store') }}',
+                url: "{{ route('contact.store') }}",
                 data: formData,
                 type: 'POST',
                 dataType: 'JSON',
@@ -129,6 +129,21 @@
                 contentType: false,
                 success: function(data) {
                     console.log(data);
+                    if (data.success) {
+                        $(".global-message").addClass('alert , alert-info')
+                        $(".global-message").fadeIn()
+                        $(".global-message").text(data.message)
+
+                        clearData($($this).parents("form"), ['first_name', 'last_name', 'email',
+                            'subject', 'message'
+                        ]);
+
+                        setTimeout(() => {
+                            $(".global-message").fadeOut()
+                        }, 5000);
+                    } else {
+
+                    }
                 }
             })
 

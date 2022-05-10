@@ -107,9 +107,9 @@
 @section('custom_js')
 
 <script>
-	setTimeout(() => {
-		$(".global-message").fadeOut();
-	}, 5000);
+    setTimeout(() => {
+        $(".global-message").fadeOut;
+    }, 5000);
 </script>
 
 @endsection
