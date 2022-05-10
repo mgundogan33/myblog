@@ -15,7 +15,11 @@ class ContactController extends Controller
     }
     public function store()
     {
-       $attributes= request()->validate([
+        $data = array();
+        $data['name'] = 'Mehmet';
+        return response()->json($data);
+
+        $attributes = request()->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
@@ -26,13 +30,13 @@ class ContactController extends Controller
         Contact::create($attributes);
 
         Mail::to("gundogan.mehmet33@gmail.com")->send(new ContactMail(
-            $attributes ['first_name'],
-            $attributes ['last_name'],
-            $attributes ['email'],
-            $attributes ['subject'],
-            $attributes ['message']
+            $attributes['first_name'],
+            $attributes['last_name'],
+            $attributes['email'],
+            $attributes['subject'],
+            $attributes['message']
         ));
 
-        return redirect()->route('contact.create')->with('success','Mesajın Gönderildi');
+        return redirect()->route('contact.create')->with('success', 'Mesajın Gönderildi');
     }
 }

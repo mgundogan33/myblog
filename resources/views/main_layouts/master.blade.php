@@ -41,16 +41,17 @@
     <link rel="stylesheet" href="{{ asset('asset/css/owl.theme.default.min.css') }}">
 
     <!-- Flaticons  -->
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/fonts/flaticon/font/flaticon.css') }}">
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
 
     <!-- Modernizr JS -->
-    <script src="{{ asset('asset/jsmodernizr-2.6.2.min.js') }}"></script>
+    <script src="{{ asset('asset/js/modernizr-2.6.2.min.js') }}"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
- <script src="{{ asset('asset/jsrespond.min.js') }}"></script>
+ <script src="{{ asset('asset/js/respond.min.js') }}"></script>
  <![endif]-->
     @yield('custom_css')
 
@@ -81,14 +82,15 @@
                                 </li>
                                 <li><a href="{{ route('about') }}">About</a></li>
                                 <li><a href="{{ route('contact.create') }}">Contact</a></li>
-                               @guest
+                                @guest
                                     <li class="btn-cta"><a href="{{ route('login') }}"><span>Giriş Yap</span></a>
                                     </li>
                                 @endguest
                                 @auth
                                     <li class="has-dropdown">
                                         <a href="">
-                                            {{ Str::limit(Auth::user()->name, 5, '') }} <span class="caret"></span>
+                                            {{ Str::limit(Auth::user()->name, 5, '') }} <span
+                                                class="caret"></span>
                                         </a>
                                         <ul class="dropdown">
                                             <li>
@@ -279,6 +281,13 @@
     <!-- Main -->
     <script src="{{ asset('asset/js/main.js') }}"></script>
     @yield('custom_js')
+
+    <script>
+        setTimeout(() => {
+            $(".global-message").fadeOut;
+        }, 5000);
+    </script>
+
 </body>
 
 </html>
