@@ -30,7 +30,10 @@ Route::get('/contact',[ContactController::class,'create'])->name('contact.create
 Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
 
 Route::get('/categories/{category:slug}',[CategoryController::class,'show'])->name('categories.show');
-Route::get('/tag/{tag:slug}',[TagController::class,'show'])->name('tags.show');
+Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
+
+
+Route::get('/tag/{tag:name}',[TagController::class,'show'])->name('tags.show');
 
 
 require __DIR__ . '/auth.php';
