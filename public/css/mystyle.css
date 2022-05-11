@@ -15,3 +15,8 @@
 .global-message.error {
     background: #d81d1d;
 }
+/* Kategori style */
+
+.categories-col .block-21 .text{
+    width: 100%;
+}

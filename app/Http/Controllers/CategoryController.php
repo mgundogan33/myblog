@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories.index',[
-            'categories'=>Category::withCount('posts')->get()
+            'categories'=>Category::withCount('posts')->paginate(100)
         ]);
     }
     public function show(Category $category)
