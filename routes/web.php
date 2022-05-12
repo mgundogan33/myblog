@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminControllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
@@ -8,8 +9,6 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-use App\Http\Controllers\AdminControllers\DashboardController;
-use App\Http\Controllers\AdminControllers\AdminPostsController;
 
 // Front User Route
 
@@ -33,7 +32,6 @@ require __DIR__ . '/auth.php';
 
 // Admin Dashboard Routes
 
-Route::prefix('admin')->name('admin.')->middleware('auth','isadmin')->group(function () {
+Route::prefix('admin')->name('admin')->middleware('auth','isadmin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::resource('posts',AdminPostsController::class);
 });
