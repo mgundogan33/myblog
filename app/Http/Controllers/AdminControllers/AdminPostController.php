@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers\AdminControllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminPostController extends Controller
 {
+    private $rules = [
+        'title' => 'required|max:200',
+        'slug' => 'required|max:200',
+        'excerpt' => 'required|max:300',
+        'category_id' => 'required|numeric',
+        'thumbnail' => 'required|file|mimes:jpg,png,webp,svg,jpeg',
+        'body' => 'required'
+    ];
     public function index()
     {
         return view('admin_dashboard.posts.index');
@@ -15,21 +24,32 @@ class AdminPostController extends Controller
 
     public function create()
     {
-        return view('admin_dashboard.posts.create',[
-            'categories'=>Category::pluck('name','id')
+        return view('admin_dashboard.posts.create', [
+            'categories' => Category::pluck('name', 'id')
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate($this->rules);
+        $validated['user_id'] = auth()->id();
+        $post = Post::create($validated);
+
+        if ($request->has('thumbnail')) {
+            $thumbnail = $request->file('thumbnail');
+            $filename = $thumbnail->getClientOriginalName();
+            $file_extension = $thumbnail->getClientOriginalExtension();
+            $path = $thumbnail->store('images', 'public');
+
+            $post->image()->create([
+                'name' => $filename,
+                'extension' => $file_extension,
+                'path' => $path
+            ]);
+        }
+        return redirect()->route('admin.posts.create')->with('success', 'Post has ben created');
     }
+
 
     /**
      * Display the specified resource.
