@@ -50,27 +50,16 @@ class AdminPostController extends Controller
         return redirect()->route('admin.posts.create')->with('success', 'Post has ben created');
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show()
     {
-        //
+
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin_dashboard.posts.edit', [
+            'post' => $post,
+            'categories'=>Category::pluck('name','id')
+        ]);
     }
 
     /**
