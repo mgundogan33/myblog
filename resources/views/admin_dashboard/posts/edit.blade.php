@@ -36,7 +36,7 @@
 
                     <form action="{{ route('admin.posts.update', $post) }}" method='post' enctype='multipart/form-data'>
                         @csrf
-
+                        @method('PATCH')
                         <div class="form-body mt-4">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -103,8 +103,7 @@
                                                         <div class="card-body">
                                                             <label for="inputProductDescription" class="form-label">Post
                                                                 Thumbnail</label>
-                                                            <input id='thumbnail' required name='thumbnail' id="file"
-                                                                type="file">
+                                                            <input id='thumbnail' name='thumbnail' id="file" type="file">
 
                                                             @error('thumbnail')
                                                                 <p class='text-danger'>{{ $message }}</p>
@@ -113,7 +112,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    <img src="/storage/{{$post->image->path}}" class="img-responsive" alt="Post Thumbnail">
+                                                    <img style="width: 100%" src="/storage/{{ $post->image ? $post->image->path : 'placeholders/thumbnail_placeholder.svg'}}"class="img-responsive" alt="Post Thumbnail">
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +120,7 @@
                                         <div class="mb-3">
                                             <label for="inputProductDescription" class="form-label">Post Content</label>
                                             <textarea name='body' id='post_content' class="form-control" id="inputProductDescription"
-                                                rows="3">{{ old('body',str_replace('../../','/',$post->body)) }}</textarea>
+                                                rows="3">{{ old('body', str_replace('../../../', '/', $post->body)) }}</textarea>
 
                                             @error('body')
                                                 <p class='text-danger'>{{ $message }}</p>
@@ -130,6 +129,11 @@
 
                                         <button class='btn btn-primary' type='submit'>Update Post</button>
 
+                                        <form action="{{ route('admin.posts.destroy', $post) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete Post</button>
+                                        </form>
                                     </div>
                                 </div>
 
