@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AdminCategoriesController extends Controller
 {
+    private $rules = [
+        'name' => 'required|min:3|max:30',
+        'slug' => 'required|unique:categories,slug'
+    ];
+
     public function index()
     {
         return view('admin_dashboard.categories.index');
@@ -20,19 +25,24 @@ class AdminCategoriesController extends Controller
 
     public function store(Request $request)
     {
+        $validated = $request->validate($this->rules);
+        $validated['user_id'] = auth()->id();
+        Category::create($validated);
+
+        return redirect()->route('admin.categories.create')->with('success', 'Category has ben Created');
     }
 
     public function show(Category $category)
     {
-        return view('admin_dashboard.categories.index',[
-            'category'=>$category
+        return view('admin_dashboard.categories.index', [
+            'category' => $category
         ]);
     }
 
     public function edit(Category $category)
     {
-        return view('admin_dashboard.categories.edit',[
-            'category'=>$category
+        return view('admin_dashboard.categories.edit', [
+            'category' => $category
         ]);
     }
 
