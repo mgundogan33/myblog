@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\AdminControllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class AdminCategoriesController extends Controller
 {
@@ -46,9 +47,15 @@ class AdminCategoriesController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $this->rules['slug'] = ['required', Rule::unique('categories')->ignore($category)];
+
+        $validated = $request->validate($this->rules);
+
+        $category->update($validated);
+
+        return redirect()->route('admin.categories.edit',$category)->with('success', 'Category has ben Updated');
     }
 
     public function destroy($id)
