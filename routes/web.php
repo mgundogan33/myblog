@@ -8,9 +8,10 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\AdminControllers\AdminPostController;
 use App\Http\Controllers\AdminControllers\DashboardController;
-use App\Http\Controllers\AdminControllers\TinyMCEController;
+use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 
 // Front User Route
 
@@ -36,7 +37,9 @@ require __DIR__ . '/auth.php';
 
 Route::prefix('admin')->name('admin.')->middleware('auth','isadmin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::post('upload_tinymce_image',[TinyMCEController::class,'upload_tinymce_image'])->name('upload_tinymce_image');
 
     Route::resource('posts',AdminPostController::class);
-    Route::post('upload_tinymce_image',[TinyMCEController::class,'upload_tinymce_image'])->name('upload_tinymce_image');
+    Route::resource('categories',AdminCategoriesController::class);
+
 });
