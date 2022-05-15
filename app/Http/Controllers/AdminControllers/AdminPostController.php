@@ -83,7 +83,7 @@ class AdminPostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        $this->rules['thumbnail'] = 'nullable|file|mimes:jpg,png,webp,svg,jpeg|jpeg,dimensions:max_width=300,max_height=227';
+        $this->rules['thumbnail'] = 'nullable|file|mimes:jpg,png,webp,svg,jpeg|jpeg,dimensions:max_width=400,max_height=350';
         $validated = $request->validate($this->rules);
 
         $post->update($validated);
@@ -114,6 +114,7 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post)
     {
+        $post->tags()->delete();
         $post->delete();
         return redirect()->route('admin.posts.index')->with('success', 'Post has been Deleted.');
     }
