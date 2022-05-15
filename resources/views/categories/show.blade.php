@@ -11,7 +11,7 @@
                     @forelse ($posts as $post)
                         <div class="block-21 d-flex animate-box">
                             <a href="{{ route('posts.show', $post) }}" class="blog-img"
-                                style="background-image: url({{ asset('storage/' . $post->image->path) }});">
+                                style="background-image: url({{ (!empty($post->image->path)? asset('storage/' . $post->image->path) : 'https://pharem-project.eu/wp-content/themes/consultix/images/no-image-found-360x250.png') }});">
                             </a>
                             <div class="text">
                                 <h3 class="heading">

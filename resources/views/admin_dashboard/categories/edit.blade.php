@@ -53,6 +53,7 @@
                                         </div>
 
                                         <button class='btn btn-primary' type='submit'>Update Category</button>
+
                                         <a class="btn btn-danger"
                                          onclick="event.preventDefault();document.getElementById('delete_category_{{$category->id}}').submit()"
                                         href="#">Delete Category</a>
