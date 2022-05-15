@@ -29,28 +29,35 @@ class DatabaseSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         \App\Models\Role::factory(1)->create();
-        \App\Models\Role::factory(1)->create(['name'=>'admin']);
+        \App\Models\Role::factory(1)->create(['name' => 'admin']);
 
-        $users=\App\Models\User::factory(10)->create();
+        $users = \App\Models\User::factory(10)->create();
+        \App\Models\User::factory()->create([
+            'name' => 'mehmet',
+            'email' => 'gundogan.mehmet33@gmail.com',
+            'role_id' => 2
+        ]);
 
-        foreach($users as $user){
+
+        foreach ($users as $user) {
             $user->image()->save(\App\Models\Image::factory()->make());
         }
 
         \App\Models\Category::factory(10)->create();
-        $posts=\App\Models\Post::factory(50)->create();
+        \App\Models\Category::factory()->create(['name' => 'Uncategorized']);
+
+        $posts = \App\Models\Post::factory(50)->create();
         \App\Models\Comment::factory(100)->create();
         \App\Models\Tag::factory(10)->create();
 
-        foreach ($posts as $post){
-            $tags_ids=[];
-            $tags_ids[]=\App\Models\Tag::all()->random()->id;
-            $tags_ids[]=\App\Models\Tag::all()->random()->id;
-            $tags_ids[]=\App\Models\Tag::all()->random()->id;
+        foreach ($posts as $post) {
+            $tags_ids = [];
+            $tags_ids[] = \App\Models\Tag::all()->random()->id;
+            $tags_ids[] = \App\Models\Tag::all()->random()->id;
+            $tags_ids[] = \App\Models\Tag::all()->random()->id;
 
             $post->tags()->sync($tags_ids);
             $post->image()->save(\App\Models\Image::factory()->make());
-
         }
     }
 }

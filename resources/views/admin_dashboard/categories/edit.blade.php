@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </form>
-                    <form id="delete_category_{{$category->id}}" action="{{ route('admin.categories.destroy', $category) }}">
+                    <form id="delete_category_{{$category->id}}" method="post" action="{{ route('admin.categories.destroy', $category) }}">
                         @csrf
                         @method('DELETE')
                     </form>
