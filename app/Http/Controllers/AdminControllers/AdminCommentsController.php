@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\AdminControllers;
-
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
-use App\Models\Post;
 use Illuminate\Http\Request;
+
+use App\Models\Post;
+use App\Models\Comment;
 
 class AdminCommentsController extends Controller
 {
@@ -16,7 +16,9 @@ class AdminCommentsController extends Controller
 
     public function index()
     {
-        //
+        return view('admin_dashboard.comments.index', [
+            'comments' => Comment::latest()->paginate(50)
+        ]);
     }
 
     public function create()
@@ -32,31 +34,27 @@ class AdminCommentsController extends Controller
         $validated['user_id'] = auth()->id();
 
         Comment::create($validated);
-        return redirect()->route('admin.comments.create')->with('success', 'Comment has been added');
-    }
-
-    public function show($id)
-    {
-        //
+        return redirect()->route('admin.comments.create')->with('success', 'Comment has been added.');
     }
 
     public function edit(Comment $comment)
     {
         return view('admin_dashboard.comments.edit', [
-            'posts' => Post::pluck('title', 'id')
+            'posts' => Post::pluck('title', 'id'),
+            'comment' => $comment
         ]);
     }
 
     public function update(Request $request, Comment $comment)
     {
-
         $validated = $request->validate($this->rules);
         $comment->update($validated);
-        return redirect()->route('admin.comments.update', $comment)->with('success', 'Comment has been updated');
+        return redirect()->route('admin.comments.edit', $comment)->with('success', 'Comment has been updated.');
     }
 
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        return redirect()->route('admin.comments.index')->with('success', 'Comment has been deleted.');
     }
 }
