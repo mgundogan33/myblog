@@ -65,7 +65,7 @@
                                             <label for="inputProductDescription" class="form-label">Post Comment</label>
                                             <textarea name='the_comment'  id='post_comment' class="form-control" id="inputProductDescription" rows="3">{{ old("the_comment") }}</textarea>
 
-                                            @error('body')
+                                            @error('the_comment')
                                                 <p class='text-danger'>{{ $message }}</p>
                                             @enderror
                                         </div>

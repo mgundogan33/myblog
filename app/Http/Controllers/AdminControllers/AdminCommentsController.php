@@ -40,10 +40,10 @@ class AdminCommentsController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(Comment $comment)
     {
         return view('admin_dashboard.comments.edit', [
-            'posts' => Post::pluck('id', 'title')
+            'posts' => Post::pluck('title', 'id')
         ]);
     }
 
@@ -52,7 +52,7 @@ class AdminCommentsController extends Controller
 
         $validated = $request->validate($this->rules);
         $comment->update($validated);
-        return redirect()->route('admin.comments.create')->with('success', 'Comment has been added');
+        return redirect()->route('admin.comments.update', $comment)->with('success', 'Comment has been updated');
     }
 
     public function destroy($id)
