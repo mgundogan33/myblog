@@ -53,7 +53,7 @@ class AdminPostController extends Controller
         $tags = explode(',', $request->input('tags'));
         $tags_ids = [];
         foreach ($tags as $tag) {
-            $tag_ob = Tag::create(['name' => $tag]);
+            $tag_ob = Tag::create(['name' =>trim( $tag)]);
             $tags_ids[] = $tag_ob->id;
         }
         if (count($tags_ids) > 0)
@@ -103,11 +103,14 @@ class AdminPostController extends Controller
         $tags = explode(',', $request->input('tags'));
         $tags_ids = [];
         foreach ($tags as $tag) {
-            $tag_ob = Tag::create(['name' => $tag]);
-            $tags_ids[] = $tag_ob->id;
+            $tag_exist = $post->tags()->where('name', trim($tag))->count();
+            if ($tag_exist == 0) {
+                $tag_ob = Tag::create(['name' => $tag]);
+                $tags_ids[] = $tag_ob->id;
+            }
         }
         if (count($tags_ids) > 0)
-            $post->tags()->sync($tags_ids);
+            $post->tags()->syncWithoutDetaching($tags_ids);
 
         return redirect()->route('admin.posts.edit', $post)->with('success', 'Post has ben updated');
     }
