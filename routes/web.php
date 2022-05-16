@@ -44,5 +44,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'isadmin')->group(fun
     Route::resource('posts', AdminPostController::class);
     Route::resource('categories', AdminCategoriesController::class);
     Route::resource('tags',AdminTagsController::class)->only(['index','show','destroy']);
-    Route::resource('comments', AdminCommentsController::class);
+    Route::resource('comments', AdminCommentsController::class)->except('show');
 });
