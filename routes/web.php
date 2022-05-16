@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\AdminControllers\AdminPostController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
 use App\Http\Controllers\AdminControllers\DashboardController;
+use App\Http\Controllers\AdminControllers\AdminCommentsController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 
 // Front User Route
@@ -42,6 +43,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth', 'isadmin')->group(fun
 
     Route::resource('posts', AdminPostController::class);
     Route::resource('categories', AdminCategoriesController::class);
-
     Route::resource('tags',AdminTagsController::class)->only(['index','show','destroy']);
+    Route::resource('comments', AdminCommentsController::class);
 });
