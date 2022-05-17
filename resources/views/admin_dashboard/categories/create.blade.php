@@ -37,7 +37,7 @@
                                             <input type="text" value='{{ old('title') }}' name='name' required
                                                 class="form-control" id="inputProductTitle">
 
-                                            @error('title')
+                                            @error('name')
                                                 <p class='text-danger'>{{ $message }}</p>
                                             @enderror
                                         </div>
