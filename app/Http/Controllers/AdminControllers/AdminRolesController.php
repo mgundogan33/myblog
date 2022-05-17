@@ -5,16 +5,17 @@ namespace App\Http\Controllers\AdminControllers;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class AdminRolesController extends Controller
 {
-    private $rules = ['name' => 'required'];
+    private $rules = ['name' => 'required|unique:roles,name'];
 
     public function index()
     {
-        return view('admin_dashboard.roles.edit', [
-            'roles' => Role::all(),
+        return view('admin_dashboard.roles.index', [
+            'roles' => Role::paginate(20),
         ]);
     }
 
@@ -46,6 +47,7 @@ class AdminRolesController extends Controller
 
     public function update(Request $request, Role $role)
     {
+        $this->rules['name'] = ['required', Rule::unique('roles')->ignore($role)];
         $validated = $request->validate($this->rules);
         $permissions = $request->input('permissions');
 
@@ -59,6 +61,5 @@ class AdminRolesController extends Controller
     {
         $role->delete();
         return redirect()->route('admin.roles.index')->with('success', 'Role has been deleted');
-
     }
 }
