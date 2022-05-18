@@ -62,12 +62,12 @@
                                                         $end = round($the_count * ($j / 3));
 
                                                     @endphp
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 input-group-text d-block">
                                                         @for ($i = $start; $i < $end; $i++)
-                                                            <label class="permission">
-                                                                <input
+                                                            <label class="permission form-check">
+                                                                <input class="form-check-input" type="checkbox"
                                                                     {{ $role->permissions->contains($permissions[$i]->id) ? 'checked' : '' }}
-                                                                    type="checkbox" name="permissions[]"
+                                                                    name="permissions[]"
                                                                     value="{{ $permissions[$i]->id }}">{{ $permissions[$i]->name }}
                                                             </label>
                                                         @endfor
