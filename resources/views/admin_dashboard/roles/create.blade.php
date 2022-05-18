@@ -51,28 +51,30 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="inputProductTitle" class="form-label">Role Permissions</label>
-                                            <div class="row">
-                                                @php
-                                                    $the_count = count($permissions);
-                                                    $start = 0;
-                                                @endphp
-                                                @for ($j = 1; $j <= 3; $j++)
+                                            <div class="container">
+                                                <div class="row">
                                                     @php
-                                                        $end = round($the_count * ($j / 3));
+                                                        $the_count = count($permissions);
+                                                        $start = 0;
+                                                    @endphp
+                                                    @for ($j = 1; $j <= 3; $j++)
+                                                        @php
+                                                            $end = round($the_count * ($j / 3));
 
-                                                    @endphp
-                                                    <div class="col-md-4">
-                                                        @for ($i = $start; $i < $end; $i++)
-                                                            <label class="permission">
-                                                                <input type="checkbox" name="permissions[]"
-                                                                    value="{{ $permissions[$i]->id }}">{{ $permissions[$i]->name }}
-                                                            </label>
-                                                        @endfor
-                                                    </div>
-                                                    @php
-                                                        $start = $end;
-                                                    @endphp
-                                                @endfor
+                                                        @endphp
+                                                        <div class="col-md-4">
+                                                            @for ($i = $start; $i < $end; $i++)
+                                                                <label class="permission">
+                                                                    <input type="checkbox" name="permissions[]"
+                                                                        value="{{ $permissions[$i]->id }}">{{ $permissions[$i]->name }}
+                                                                </label>
+                                                            @endfor
+                                                        </div>
+                                                        @php
+                                                            $start = $end;
+                                                        @endphp
+                                                    @endfor
+                                                </div>
                                             </div>
                                         </div>
                                         <button class='btn btn-primary' type='submit'>Add Role</button>

@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminControllers\AdminPostController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminRolesController;
+use App\Http\Controllers\AdminControllers\AdminUsersController;
 use App\Http\Controllers\AdminControllers\AdminCommentsController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 
@@ -47,4 +48,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isadmin','check_per
     Route::resource('tags',AdminTagsController::class)->only(['index','show','destroy']);
     Route::resource('comments', AdminCommentsController::class)->except('show');
     Route::resource('roles', AdminRolesController::class)->except('show');
+    Route::resource('users', AdminUsersController::class)->except('show');
 });
