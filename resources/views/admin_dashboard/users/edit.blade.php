@@ -30,7 +30,7 @@
                     <h5 class="card-title">Add New User</h5>
                     <hr />
 
-                    <form action="{{ route('admin.users.update',$user) }}" method='post' enctype="multipart/form-data">
+                    <form action="{{ route('admin.users.update', $user) }}" method='post' enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="form-body mt-4">
@@ -80,7 +80,8 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="user-image">
-                                                    <img src="{{$user->image ? asset('storage/'.$user->image->path) : asset('storage/placeholders/user_placeholder.jpg')}}" alt="">
+                                                    <img src="{{ $user->image ? asset('storage/' . $user->image->path) : asset('storage/placeholders/user_placeholder.jpg') }}"
+                                                        alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -93,7 +94,9 @@
                                                         <div class="mb-3">
                                                             <select required name='role_id' class="single-select">
                                                                 @foreach ($roles as $key => $role)
-                                                                    <option {{$user->role_id===$key ? 'selected' : ''}} value="{{ $key }}">
+                                                                    <option
+                                                                        {{ $user->role_id === $key ? 'selected' : '' }}
+                                                                        value="{{ $key }}">
                                                                         {{ $role }}
                                                                     </option>
                                                                 @endforeach
@@ -110,13 +113,18 @@
                                         </div>
 
                                         <button class='btn btn-primary' type='submit'>Update User</button>
-
+                                        <a onclick="event.preventDefault();document.getElementById('delete_user_{{ $user->id }}').submit()"
+                                            href="#" class='btn btn-danger'>
+                                            Delete User
+                                        </a>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </form>
+                    <form id="delete_user_{{ $user->id }}" action="{{ route('admin.users.destroy', $user) }}"
+                        method="POST">@csrf @method('DELETE')</form>
 
                 </div>
             </div>

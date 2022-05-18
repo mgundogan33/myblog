@@ -65,10 +65,9 @@ class AdminUsersController extends Controller
         $this->rules['password'] = 'nullable|min:3|max:20';
         $this->rules['email'] = ['required', 'email', Rule::unique('users')->ignore($user)];
 
-
         $validated = $request->validate($this->rules);
 
-        if ($validated['password'] === '')
+        if ($validated['password'] === null)
             unset($validated['password']);
         else
             $validated['password'] = Hash::make($request->input('password'));
@@ -90,8 +89,9 @@ class AdminUsersController extends Controller
         return redirect()->route('admin.users.edit', $user)->with('success', 'User has ben updated');
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('admin.users.index')->with('success', 'User has ben deleted');
     }
 }
