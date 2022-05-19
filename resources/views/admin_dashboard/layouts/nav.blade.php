@@ -13,7 +13,7 @@
             <!--navigation-->
             <ul class="metismenu" id="menu">
                 <li>
-                    <a href="{{ url('admin') }}" target="_blank">
+                    <a href="{{ route('admin.index') }}">
                     <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
                         <div class="menu-title">Dashboard</div>
                     </a>
@@ -101,6 +101,13 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('admin.contacts') }}">
+                    <div class="parent-icon"><i class='bx bx-mail-send'></i></div>
+                        <div class="menu-title">Contacts</div>
+                    </a>
+                </li>
+
             </ul>
             <!--end navigation-->
         </div>

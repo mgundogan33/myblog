@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminRolesController;
 use App\Http\Controllers\AdminControllers\AdminUsersController;
 use App\Http\Controllers\AdminControllers\AdminCommentsController;
+use App\Http\Controllers\AdminControllers\AdminContactsController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 
 // Front User Route
@@ -39,14 +40,16 @@ require __DIR__ . '/auth.php';
 
 // Admin Dashboard Routes
 
-Route::prefix('admin')->name('admin.')->middleware(['auth','check_permissions'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::post('upload_tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('upload_tinymce_image');
 
     Route::resource('posts', AdminPostController::class);
     Route::resource('categories', AdminCategoriesController::class);
-    Route::resource('tags',AdminTagsController::class)->only(['index','show','destroy']);
+    Route::resource('tags', AdminTagsController::class)->only(['index', 'show', 'destroy']);
     Route::resource('comments', AdminCommentsController::class)->except('show');
     Route::resource('roles', AdminRolesController::class)->except('show');
     Route::resource('users', AdminUsersController::class);
+
+    Route::get('contacts', [AdminContactsController::class, 'index'])->name('contacts');
 });
