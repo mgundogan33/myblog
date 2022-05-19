@@ -14,4 +14,9 @@ class AdminContactsController extends Controller
             'contacts' => Contact::all()
         ]);
     }
+    public function destroy(Contact $contact)
+    {
+        $contact->delete();
+        return redirect()->route('admin.contacts')->with('danger', 'Contact has ben Deleted.');
+    }
 }
