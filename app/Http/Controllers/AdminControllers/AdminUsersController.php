@@ -103,6 +103,10 @@ class AdminUsersController extends Controller
         if ($user->id === auth()->id())
             return redirect()->back()->with('danger', 'You can not delete your self');
 
+        User::whereHas('role', function ($query) {
+            $query->where('name', 'admin');
+        })->first()->posts()->saveMany($user->posts);
+
         $user->delete();
         return redirect()->route('admin.users.index')->with('danger', 'User has ben deleted');
     }
