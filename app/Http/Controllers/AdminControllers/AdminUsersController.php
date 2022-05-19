@@ -21,7 +21,9 @@ class AdminUsersController extends Controller
 
     public function index()
     {
-        //
+        return view('admin_dashboard.users.index', [
+            'users' => User::with('role')->paginate('50'),
+        ]);
     }
     public function create()
     {
@@ -60,6 +62,13 @@ class AdminUsersController extends Controller
         ]);
     }
 
+    public function show(User $user)
+    {
+        return view('admin_dashboard.users.show', [
+            'user' => $user
+        ]);
+    }
+
     public function update(Request $request, User $user)
     {
         $this->rules['password'] = 'nullable|min:3|max:20';
@@ -91,7 +100,10 @@ class AdminUsersController extends Controller
 
     public function destroy(User $user)
     {
+        if ($user->id === auth()->id())
+            return redirect()->back()->with('danger', 'You can not delete your self');
+
         $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'User has ben deleted');
+        return redirect()->route('admin.users.index')->with('danger', 'User has ben deleted');
     }
 }

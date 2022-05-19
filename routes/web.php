@@ -48,5 +48,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','check_permissions'])
     Route::resource('tags',AdminTagsController::class)->only(['index','show','destroy']);
     Route::resource('comments', AdminCommentsController::class)->except('show');
     Route::resource('roles', AdminRolesController::class)->except('show');
-    Route::resource('users', AdminUsersController::class)->except('show');
+    Route::resource('users', AdminUsersController::class);
 });
