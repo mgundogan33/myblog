@@ -68,7 +68,7 @@
                                             </div>
                                             <div class='col-md-4'>
                                                 <div class='user-image p-2'>
-                                                    <img class='img-fluid img-thumbnail' src='{{ asset($setting->about_first_image) }}' >
+                                                    <img class='img-fluid img-thumbnail' src='{{ asset('storage/'.$setting->about_first_image) }}' >
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class='col-md-4'>
                                                 <div class='user-image p-2'>
-                                                    <img class='img-fluid img-thumbnail' src='{{ asset($setting->about_second_image) }}' >
+                                                    <img class='img-fluid img-thumbnail' src='{{ asset('storage/'.$setting->about_second_image) }}' >
                                                 </div>
                                             </div>
                                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
 use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -30,5 +31,8 @@ class AppServiceProvider extends ServiceProvider
 
         $categories = Category::withCount('posts')->orderBy('posts_count','DESC')->take(10)->get();
         View::share('navbar_categories', $categories);
+
+        $setting = Setting::find(1);
+        View::share('setting', $setting);
     }
 }
