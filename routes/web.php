@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\AdminControllers\AdminPostController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
 use App\Http\Controllers\AdminControllers\DashboardController;
+use App\Http\Controllers\AdminControllers\AdminSettingController;
 use App\Http\Controllers\AdminControllers\AdminRolesController;
 use App\Http\Controllers\AdminControllers\AdminUsersController;
 use App\Http\Controllers\AdminControllers\AdminCommentsController;
@@ -53,4 +54,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions']
 
     Route::get('contacts', [AdminContactsController::class, 'index'])->name('contacts');
     Route::delete('contacts/{contact}', [AdminContactsController::class, 'destroy'])->name('contacts.destroy');
+
+    Route::get('about', [AdminSettingController::class, 'edit'])->name('setting.edit');
+    Route::post('about', [AdminSettingController::class, 'update'])->name('setting.update');
+
 });

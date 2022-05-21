@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
                 $permissions_ids[] = $permission->id;
             }
         }
-       \App\Models\Role::where('name','admin')->first()->permissions()->sync($permissions_ids);
+        \App\Models\Role::where('name', 'admin')->first()->permissions()->sync($permissions_ids);
 
         $users = \App\Models\User::factory(10)->create();
         \App\Models\User::factory()->create([
@@ -72,5 +72,6 @@ class DatabaseSeeder extends Seeder
             $post->tags()->sync($tags_ids);
             $post->image()->save(\App\Models\Image::factory()->make());
         }
+        \App\Models\Setting::factory(1)->create();
     }
 }

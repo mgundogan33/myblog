@@ -47,7 +47,14 @@
                                                 <p class='text-danger'>{{ $message }}</p>
                                             @enderror
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="input_email" class="form-label">Email</label>
+                                            <input name='email' type='email' class="form-control" id="input_email" value='{{ old("email", $user->email) }}'>
 
+                                            @error('email')
+                                                <p class='text-danger'>{{ $message }}</p>
+                                            @enderror
+                                        </div>
 
                                         <div class="mb-3">
                                             <label for="input_password" class="form-label">Password</label>
@@ -72,7 +79,8 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="user-image">
-                                                    <img class="w-50" src="{{ $user->image ? asset('storage/' . $user->image->path) : asset('storage/placeholders/user_placeholder.jpg') }}"
+                                                    <img class="w-50"
+                                                        src="{{ $user->image ? asset('storage/' . $user->image->path) : asset('storage/placeholders/user_placeholder.jpg') }}"
                                                         alt="">
                                                 </div>
                                             </div>
